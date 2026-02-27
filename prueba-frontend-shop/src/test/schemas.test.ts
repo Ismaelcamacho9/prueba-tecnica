@@ -2,11 +2,11 @@ import { describe, expect, it } from 'vitest'
 import {
   ProductDetailSchema,
   ProductListItemSchema,
-} from '../schemas/product'
+} from '@/schemas/product'
 import {
   AddToCartBodySchema,
   AddToCartResponseSchema,
-} from '../schemas/cart'
+} from '@/schemas/cart'
 
 const validProductListItem = {
   id: 'ZmGrkLRPXOTpxsU4jjAcv',
