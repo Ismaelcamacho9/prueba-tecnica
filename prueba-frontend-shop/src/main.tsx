@@ -3,9 +3,11 @@ import { createRoot } from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
 import { persistQueryClient } from '@tanstack/react-query-persist-client'
+import { RouterProvider } from '@tanstack/react-router'
 import '@/index.css'
-import App from '@/App.tsx'
+import { CartProvider } from '@/context/cart-provider'
 import { queryClient } from '@/lib/queryClient'
+import { router } from '@/router'
 
 const asyncStorage = {
   getItem: async (key: string) => localStorage.getItem(key),
@@ -19,7 +21,9 @@ persistQueryClient({ queryClient, persister, maxAge: 1000 * 60 * 60 })
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

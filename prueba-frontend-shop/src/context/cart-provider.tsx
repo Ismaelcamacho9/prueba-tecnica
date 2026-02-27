@@ -1,12 +1,7 @@
-import { createContext, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 
-type CartContextType = { count: number; setCount: (n: number) => void }
-
-export const CartContext = createContext<CartContextType>({
-  count: 0,
-  setCount: () => {},
-})
+import { CartContext } from '@/context/cart-context'
 
 type CartProviderProps = {
   children: ReactNode

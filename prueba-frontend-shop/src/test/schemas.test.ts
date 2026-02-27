@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   ProductDetailSchema,
+  ProductListSchema,
   ProductListItemSchema,
 } from '@/schemas/product'
 import {
@@ -68,6 +69,21 @@ describe('Product schemas', () => {
   it('lanza error en ProductListItem con datos incorrectos', () => {
     const invalid = { ...validProductListItem, id: '' }
     expect(() => ProductListItemSchema.parse(invalid)).toThrow()
+  })
+
+  it('valida ProductList con price vacío (payload real API)', () => {
+    const parsed = ProductListSchema.parse([
+      validProductListItem,
+      {
+        id: 'AasKFs5EGbyAEIKkcHQcF',
+        brand: 'alcatel',
+        model: 'Flash (2017)',
+        price: '',
+        imgUrl: 'https://itx-frontend-test.onrender.com/images/AasKFs5EGbyAEIKkcHQcF.jpg',
+      },
+    ])
+
+    expect(parsed[1].price).toBe('sin precio')
   })
 
   it('valida ProductDetail con datos correctos', () => {

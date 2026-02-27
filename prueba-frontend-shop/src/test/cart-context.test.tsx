@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { CartProvider } from '@/context/CartContext'
+import { CartProvider } from '@/context/cart-provider'
 import { useCart } from '@/hooks/useCart'
 
 const wrapper = ({ children }: { children: ReactNode }) => (
