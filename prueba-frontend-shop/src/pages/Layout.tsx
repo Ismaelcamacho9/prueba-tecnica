@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useLocation } from '@tanstack/react-router'
 import { CheckCircle, ChevronRight, Minus, Plus, ShoppingCart, Smartphone, Trash2, X, ShoppingBag } from 'lucide-react'
 
@@ -55,10 +55,10 @@ const CartPanel = ({ open, onClose }: { open: boolean; onClose: () => void }) =>
     setPurchaseComplete(true)
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setPurchaseComplete(false)
     onClose()
-  }
+  }, [onClose])
 
   const handleDecrease = (index: number, currentQty: number) => {
     if (currentQty <= 1) {

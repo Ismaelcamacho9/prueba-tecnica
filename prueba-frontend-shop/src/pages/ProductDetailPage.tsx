@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams, Link } from '@tanstack/react-router'
 import { ArrowLeft, ShoppingCart, Cpu, MemoryStick, Monitor, Battery, Camera, Ruler, Smartphone } from 'lucide-react'
 
@@ -12,15 +12,8 @@ const ProductDetailPage = () => {
   const { id } = useParams({ from: '/product/$id' })
   const { data, isPending, isError, error } = useProduct(id)
   const addToCart = useAddToCart()
-  const [selectedColorCode, setSelectedColorCode] = useState<number | null>(null)
-  const [selectedStorageCode, setSelectedStorageCode] = useState<number | null>(null)
-
-  useEffect(() => {
-    if (data) {
-      setSelectedColorCode(data.options.colors[0]?.code ?? null)
-      setSelectedStorageCode(data.options.storages[0]?.code ?? null)
-    }
-  }, [data])
+  const [userSelectedColorCode, setSelectedColorCode] = useState<number | null>(null)
+  const [userSelectedStorageCode, setSelectedStorageCode] = useState<number | null>(null)
 
   if (isPending) {
     return (
@@ -56,6 +49,9 @@ const ProductDetailPage = () => {
       </section>
     )
   }
+
+  const selectedColorCode = userSelectedColorCode ?? data.options.colors[0]?.code ?? null
+  const selectedStorageCode = userSelectedStorageCode ?? data.options.storages[0]?.code ?? null
 
   const selectedColor = data.options.colors.find((c) => c.code === selectedColorCode)
   const selectedStorage = data.options.storages.find((s) => s.code === selectedStorageCode)

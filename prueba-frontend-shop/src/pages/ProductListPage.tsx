@@ -1,27 +1,18 @@
-﻿import { useMemo, useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Search, PackageSearch } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useFilteredProducts } from '@/hooks/useFilteredProducts'
 import { useProducts } from '@/hooks/useProducts'
 
 const ProductListPage = () => {
   const { data, isPending, isError, error } = useProducts()
   const [search, setSearch] = useState('')
 
-  const filteredProducts = useMemo(() => {
-    if (!data) return []
-
-    const normalizedQuery = search.trim().toLowerCase()
-    if (!normalizedQuery) return data
-
-    return data.filter((product) => {
-      const name = `${product.brand} ${product.model}`.toLowerCase()
-      return name.includes(normalizedQuery)
-    })
-  }, [data, search])
+  const filteredProducts = useFilteredProducts(data, search)
 
   if (isPending) {
     return (
