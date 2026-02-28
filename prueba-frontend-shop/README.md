@@ -16,11 +16,12 @@ Aplicación frontend construida con React + TypeScript + Vite.
 ## Ejecución en desarrollo
 
 Iniciar servidor local:
-
-npm run dev
+-npm run start
+-npm run dev
 
 ## Scripts disponibles
 
+- `npm run start`: inicia Vite en modo desarrollo.
 - `npm run dev`: inicia Vite en modo desarrollo.
 - `npm run build`: compila TypeScript y genera build de producción.
 - `npm run preview`: sirve localmente el build generado.

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, Link } from '@tanstack/react-router'
-import { ArrowLeft, ShoppingCart, Cpu, MemoryStick, Monitor, Battery, Camera, Ruler, Smartphone } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Cpu, MemoryStick, Monitor, Battery, Camera, Ruler, Smartphone, Weight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -64,6 +64,7 @@ const ProductDetailPage = () => {
     { icon: Monitor, label: 'Pantalla', value: data.displayResolution },
     { icon: Battery, label: 'Batería', value: data.battery },
     { icon: Ruler, label: 'Dimensiones', value: data.dimentions },
+    { icon: Weight, label: 'Peso', value: data.weight },
   ]
 
   return (
@@ -78,13 +79,13 @@ const ProductDetailPage = () => {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Imagen */}
-        <Card className="overflow-hidden border-0 shadow-sm">
+        <Card className="self-start overflow-hidden border-0 shadow-sm">
           <CardContent className="p-0">
-            <div className="aspect-square bg-gradient-to-br from-secondary/60 to-secondary/30">
+            <div className="flex items-center justify-center bg-gradient-to-br from-secondary/60 to-secondary/30">
               <img
                 src={data.imgUrl}
                 alt={`${data.brand} ${data.model}`}
-                className="h-full w-full object-contain p-10"
+                className="max-h-[500px] w-full object-contain p-10"
               />
             </div>
           </CardContent>
