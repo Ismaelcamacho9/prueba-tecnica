@@ -45,7 +45,7 @@ const validProductDetail = {
   wlan: ['Wi-Fi 802.11 a/b/g/n', 'Wi-Fi Direct', 'hotspot'],
   bluetooth: ['4.0', 'A2DP'],
   gps: 'Yes with A-GPS GLONASS',
-  nfc: '',
+  nfc: 'N/A',
   radio: 'FM radio',
   usb: 'microUSB 2.0',
   sensors: ['Accelerometer', 'proximity'],
