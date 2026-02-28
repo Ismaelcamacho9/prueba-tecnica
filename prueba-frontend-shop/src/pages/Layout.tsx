@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useLocation } from '@tanstack/react-router'
 import { CheckCircle, ChevronRight, Minus, Plus, ShoppingCart, Smartphone, Trash2, X, ShoppingBag } from 'lucide-react'
 
+import { Toaster } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { useCart } from '@/hooks/useCart'
 import { useProduct } from '@/hooks/useProduct'
@@ -15,8 +16,10 @@ const Breadcrumbs = () => {
   const crumbs: { label: string; to?: string }[] = [{ label: 'Inicio', to: '/' }]
 
   if (productId) {
-    const productName = product ? `${product.brand} ${product.model}` : 'Detalle del producto'
-    crumbs.push({ label: productName })
+    crumbs.push({ label: 'Detalle de productos' })
+    if (product) {
+      crumbs.push({ label: `${product.brand} ${product.model}` })
+    }
   }
 
   return (
@@ -305,10 +308,11 @@ const Layout = () => {
         <Outlet />
       </main>
 
-      <footer className="border-t py-6 text-center text-xs text-muted-foreground">
+      <footer className="border-t bg-card/80 py-6 text-center text-xs text-muted-foreground shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/60">
       </footer>
 
       <CartPanel open={cartOpen} onClose={() => setCartOpen(false)} />
+      <Toaster position="top-right" richColors />
     </div>
   )
 }

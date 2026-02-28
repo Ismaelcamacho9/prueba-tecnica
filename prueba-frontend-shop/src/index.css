@@ -56,3 +56,21 @@
     }
   }
 }
+
+[data-sonner-toaster] {
+  top: 64px !important;
+}
+
+@media (max-width: 640px) {
+  [data-sonner-toaster] {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 641px) {
+  [data-sonner-toaster] [data-sonner-toast] {
+    margin-right: 48px;
+  }
+}

@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { addToCart } from '@/api/cart'
 import { useCart } from '@/hooks/useCart'
 
@@ -33,6 +34,7 @@ export const useAddToCart = () => {
         storageName: variables.product.storageName,
       })
       setCount(data.count)
+      toast.success(`${variables.product.brand} ${variables.product.model} añadido al carrito`)
     },
   })
 }
