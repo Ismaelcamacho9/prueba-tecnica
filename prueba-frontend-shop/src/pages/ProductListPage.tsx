@@ -1,18 +1,46 @@
-﻿import { useState } from 'react'
+﻿import { useState, useCallback } from 'react'
 import { Link } from '@tanstack/react-router'
 import { Search, PackageSearch } from 'lucide-react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Pagination } from '@/components/ui/pagination'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useFilteredProducts } from '@/hooks/useFilteredProducts'
+import { usePagination } from '@/hooks/usePagination'
 import { useProducts } from '@/hooks/useProducts'
+
+const ITEMS_PER_PAGE = 8
 
 const ProductListPage = () => {
   const { data, isPending, isError, error } = useProducts()
   const [search, setSearch] = useState('')
+  const [page, setPage] = useState(1)
 
   const filteredProducts = useFilteredProducts(data, search)
+
+  // Reset to page 1 when the search term changes
+  const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+    setPage(1)
+  }, [])
+
+  const {
+    paginatedItems,
+    currentPage,
+    totalPages,
+    hasPreviousPage,
+    hasNextPage,
+    goToPreviousPage,
+    goToNextPage,
+    goToPage,
+    pageRange,
+  } = usePagination({
+    items: filteredProducts,
+    page,
+    itemsPerPage: ITEMS_PER_PAGE,
+    onPageChange: setPage,
+  })
 
   if (isPending) {
     return (
@@ -59,7 +87,7 @@ const ProductListPage = () => {
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={handleSearchChange}
             placeholder="Buscar por marca o modelo…"
             className="rounded-full bg-secondary/50 pl-9 shadow-sm transition-shadow focus:shadow-md"
             aria-label="Buscar productos"
@@ -77,8 +105,9 @@ const ProductListPage = () => {
           </CardContent>
         </Card>
       ) : (
+        <>
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filteredProducts.map((product) => (
+          {paginatedItems.map((product) => (
             <li key={product.id}>
               <Link
                 to="/product/$id"
@@ -116,6 +145,18 @@ const ProductListPage = () => {
             </li>
           ))}
         </ul>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          hasPreviousPage={hasPreviousPage}
+          hasNextPage={hasNextPage}
+          pageRange={pageRange}
+          onPageChange={goToPage}
+          onPreviousPage={goToPreviousPage}
+          onNextPage={goToNextPage}
+        />
+        </>
       )}
     </section>
   )

@@ -19,6 +19,7 @@ src/
 │   ├── useProducts.ts
 │   ├── useProduct.ts
 │   ├── useFilteredProducts.ts
+│   ├── usePagination.ts
 │   ├── useCart.ts
 │   └── useAddToCart.ts
 ├── context/          # Estado global del carrito (Context + localStorage)
@@ -26,12 +27,12 @@ src/
 │   └── cart-provider.tsx
 ├── pages/            # Vistas / páginas
 │   ├── Layout.tsx          # Shell con header, breadcrumbs y panel de carrito
-│   ├── ProductListPage.tsx # Listado con búsqueda y filtrado
+│   ├── ProductListPage.tsx # Listado con búsqueda, filtrado y paginación (8 items/página)
 │   ├── ProductDetailPage.tsx
 │   └── NotFoundPage.tsx
 ├── components/       # Componentes reutilizables y UI (shadcn/ui)
 │   ├── NotFoundState.tsx
-│   └── ui/           # Primitivas: Button, Card, Input, Skeleton
+│   └── ui/           # Primitivas: Button, Card, Input, Pagination, Skeleton
 ├── lib/              # Utilidades y configuración
 │   ├── queryClient.ts  # QueryClient con gc/stale time de 1 h
 │   └── utils.ts        # Helpers (cn, etc.)
@@ -47,6 +48,7 @@ src/
 | **Routing** | TanStack Router — rutas tipo-safe con inferencia de parámetros |
 | **Data fetching** | TanStack React Query con persistencia en `localStorage` vía `query-async-storage-persister` |
 | **Validación** | Zod para validar las respuestas de la API en runtime |
+| **Paginación** | Hook genérico `usePagination` del lado cliente (8 items/página) |
 | **Estado del carrito** | React Context + `localStorage` (sin dependencia de servidor) |
 | **Estilos** | Tailwind CSS 3 + componentes shadcn/ui (CVA + tailwind-merge) |
 | **Notificaciones** | Sonner (toast ligero) |
@@ -151,6 +153,7 @@ El reporte de cobertura se genera en `./coverage/` en formatos **text** (consola
 | `hooks.test.tsx` | `useProducts`, `useProduct` (éxito, error, retry, enabled), `useCart` fuera de provider |
 | `use-add-to-cart.test.tsx` | `useAddToCart` mutación (éxito + error) |
 | `filtered-products.test.ts` | `useFilteredProducts` (filtrado, case-insensitive, parcial, vacío) |
+| `use-pagination.test.ts` | `usePagination` (slicing, totalPages, clamp, navegación, pageRange, ellipsis, lista vacía) |
 | `cart-context.test.tsx` | `CartProvider` (add, remove, update, clear, persist, setCount) |
 | `lib.test.ts` | `cn()` utility y configuración de `queryClient` |
 | `components.test.tsx` | Button (variantes + tamaños), Card, Input, Skeleton |
