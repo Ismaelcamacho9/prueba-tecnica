@@ -182,7 +182,9 @@ const CartPanel = ({ open, onClose }: { open: boolean; onClose: () => void }) =>
                   </div>
                   <div className="flex flex-col items-end justify-center">
                     <p className="text-base font-bold">
-                      {item.price === 'sin precio' ? '—' : `${item.price} €`}
+                      {item.price === 'sin precio'
+                        ? <span className="text-muted-foreground">Sin precio</span>
+                        : `${item.price} €`}
                     </p>
                   </div>
                 </li>
