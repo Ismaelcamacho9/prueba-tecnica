@@ -1,10 +1,14 @@
 import { createRoute, createRootRoute, createRouter } from '@tanstack/react-router'
 
 import Layout from '@/pages/Layout'
+import NotFoundPage from '@/pages/NotFoundPage'
 import ProductDetailPage from '@/pages/ProductDetailPage'
 import ProductListPage from '@/pages/ProductListPage'
 
-const rootRoute = createRootRoute({ component: Layout })
+const rootRoute = createRootRoute({
+  component: Layout,
+  notFoundComponent: NotFoundPage,
+})
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,

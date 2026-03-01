@@ -10,7 +10,7 @@ import { useProduct } from '@/hooks/useProduct'
 
 const Breadcrumbs = () => {
   const location = useLocation()
-  const productId = location.pathname.match(/^\/product\/(.+)/)?.[1] ?? ''
+  const productId = location.pathname.match(/^\/product\/([^/]+)$/)?.[1] ?? ''
   const { data: product } = useProduct(productId)
 
   const crumbs: { label: string; to?: string }[] = [{ label: 'Inicio', to: '/' }]

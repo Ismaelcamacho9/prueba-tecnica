@@ -5,6 +5,8 @@ import { ArrowLeft, ShoppingCart, Cpu, MemoryStick, Monitor, Battery, Camera, Ru
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import NotFoundState from '@/components/NotFoundState'
+import { ApiError } from '@/api/client'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import { useProduct } from '@/hooks/useProduct'
 
@@ -36,6 +38,15 @@ const ProductDetailPage = () => {
   }
 
   if (isError) {
+    if (error instanceof ApiError && (error.status === 404 || error.status === 500)) {
+      return (
+        <NotFoundState
+          title="Producto no encontrado"
+          description="El producto que buscas no existe o fue eliminado."
+        />
+      )
+    }
+
     return (
       <section className="rounded-xl border border-destructive/25 bg-destructive/5 p-6 text-sm text-destructive">
         Error cargando detalle: {error instanceof Error ? error.message : 'Error desconocido'}
