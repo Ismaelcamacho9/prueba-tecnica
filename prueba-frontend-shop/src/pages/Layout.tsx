@@ -48,7 +48,7 @@ const Breadcrumbs = () => {
 
 
 const CartPanel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const { count, items, removeItem, updateQuantity, clearCart } = useCart()
+  const { count, items, totalPrice, removeItem, updateQuantity, clearCart } = useCart()
   const panelRef = useRef<HTMLDivElement>(null)
   const [confirmRemoveIndex, setConfirmRemoveIndex] = useState<number | null>(null)
   const [purchaseComplete, setPurchaseComplete] = useState(false)
@@ -196,6 +196,10 @@ const CartPanel = ({ open, onClose }: { open: boolean; onClose: () => void }) =>
 
         {items.length > 0 && (
           <div className="border-t px-5 py-4">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Total</span>
+              <span className="text-lg font-bold">{totalPrice.toFixed(2)} €</span>
+            </div>
             <Button
               className="w-full gap-2"
               size="lg"

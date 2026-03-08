@@ -103,9 +103,19 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     })
   }, [])
 
+  const totalPrice = useMemo(
+    () =>
+      items.reduce((sum, item) => {
+        const parsed = parseFloat(item.price)
+        if (Number.isNaN(parsed)) return sum
+        return sum + parsed * item.quantity
+      }, 0),
+    [items],
+  )
+
   const value = useMemo(
-    () => ({ count, items, setCount, clearCart, addItem, removeItem, updateQuantity }),
-    [count, items, setCount, clearCart, addItem, removeItem, updateQuantity],
+    () => ({ count, items, totalPrice, setCount, clearCart, addItem, removeItem, updateQuantity }),
+    [count, items, totalPrice, setCount, clearCart, addItem, removeItem, updateQuantity],
   )
 
   return (

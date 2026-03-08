@@ -14,6 +14,7 @@ export type CartItem = {
 export type CartContextType = {
   count: number
   items: CartItem[]
+  totalPrice: number
   setCount: (n: number) => void
   clearCart: () => void
   addItem: (item: Omit<CartItem, 'quantity'>) => void
